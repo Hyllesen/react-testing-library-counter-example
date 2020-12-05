@@ -2,13 +2,22 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
-test("renders learn react link", () => {
-  render(<App />);
-  const increaseBtn = screen.getByText("Increase");
-  const decreaseBtn = screen.getByText(/decrease/i);
-  const counter = screen.getByText("0");
-  userEvent.click(increaseBtn);
-  expect(counter).toHaveTextContent("1");
-  userEvent.click(decreaseBtn);
-  expect(counter).toHaveTextContent("0");
+describe("Counter App", () => {
+  let increaseBtn, decreaseBtn, counter;
+  beforeEach(() => {
+    render(<App />);
+    increaseBtn = screen.getByText("Increase");
+    decreaseBtn = screen.getByText(/decrease/i);
+    counter = screen.getByText("0");
+  });
+
+  test("increase button", () => {
+    userEvent.click(increaseBtn);
+    expect(counter).toHaveTextContent("1");
+  });
+
+  test("decrease button", () => {
+    userEvent.click(decreaseBtn);
+    expect(counter).toHaveTextContent("-1");
+  });
 });
